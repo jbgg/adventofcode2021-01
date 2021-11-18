@@ -5,19 +5,15 @@
 
 extern UART_HandleTypeDef UartHandle;
 
-void vprint(const char *fmt, va_list argp){
+void io_printf(const char *fmt, ...){
+ va_list argp;
  char str[200];
  int nsize;
+ va_start(argp, fmt);
  nsize = vsnprintf(str, 200, fmt, argp);
  if(0 < nsize || nsize >= 200){
   HAL_UART_Transmit(&UartHandle, (uint8_t*)str, nsize, 0xffffffff);
  }
-}
-
-void io_printf(const char *fmt, ...){
- va_list argp;
- va_start(argp, fmt);
- vprint(fmt, argp);
  va_end(argp);
 }
 
