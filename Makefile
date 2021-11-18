@@ -29,7 +29,8 @@ ASFLAGS=$(MCU)
 
 CFLAGS=$(MCU)
 CFLAGS+=-I. -Icmsis -Istm32 \
-								-Iio
+								-Iio -Idelay
+
 CFLAGS+=-DSTM32L432xx
 
 LDFLAGS=$(MCU)

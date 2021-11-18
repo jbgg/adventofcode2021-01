@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include "io.h"
+#include "delay.h"
 
 void system_init();
 
@@ -15,10 +16,12 @@ int main(void){
  io_printf("hello world\r\n");
 
  char c;
- io_printf("> ");
- c = io_getchar();
- io_printf("\r\nc = %c\r\n", c);
+ while(1){
+  io_printf("> ");
+  c = io_getchar();
+  io_printf("\r\nc = %c\r\n", c);
 
- while(1)
-  ;
+  delay(1000);
+ }
+
 }

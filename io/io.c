@@ -23,7 +23,7 @@ void io_printf(const char *fmt, ...){
 
 char io_getchar(){
  char c;
- //__HAL_UART_CLEAR_OREFLAG(&UartHandle);
+ __HAL_UART_CLEAR_OREFLAG(&UartHandle);
  HAL_UART_Receive(&UartHandle, (uint8_t *)&c, 1, 0xffffffff);
  return c;
 }
