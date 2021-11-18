@@ -19,6 +19,8 @@ obj = stm32/startup_stm32l432xx.o stm32/system_stm32l4xx.o \
 			stm32/stm32l4xx_hal_uart.o stm32/stm32l4xx_hal_uart_ex.o \
 			stm32/stm32l4xx_hal_gpio.o \
 			stm32/stm32l4xx_it.o \
+			io/io.o \
+			system_init.o \
 			main.o
 
 ldscript = STM32L432KCUx_FLASH.ld
@@ -26,7 +28,8 @@ ldscript = STM32L432KCUx_FLASH.ld
 ASFLAGS=$(MCU)
 
 CFLAGS=$(MCU)
-CFLAGS+=-I. -Icmsis -Istm32
+CFLAGS+=-I. -Icmsis -Istm32 \
+								-Iio
 CFLAGS+=-DSTM32L432xx
 
 LDFLAGS=$(MCU)
