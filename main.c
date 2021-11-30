@@ -4,6 +4,16 @@
 
 #include "io.h"
 #include "delay.h"
+#include "cmd.h"
+
+int cmd_test(char *args);
+int cmd_void(char *args);
+
+struct cmd_t cmds[] = {
+ {"", cmd_void},
+ {"test", cmd_test},
+ {0,}
+};
 
 void system_init();
 
@@ -15,13 +25,19 @@ int main(void){
 
  io_printf("hello world\r\n");
 
- char c;
- while(1){
-  io_printf("> ");
-  c = io_getchar();
-  io_printf("\r\nc = %c\r\n", c);
+ cmd_loop();
 
-  delay(1000);
- }
+ while(1)
+  ;
 
+ return 0;
+}
+
+int cmd_void(char *args){
+ return 0;
+}
+
+int cmd_test(char *args){
+ io_printf("Hey!!\r\n");
+ return 0;
 }
