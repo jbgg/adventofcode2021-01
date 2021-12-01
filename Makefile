@@ -10,27 +10,35 @@ FPU = -mfpu=fpv4-sp-d16
 FLOAT-ABI = -mfloat-abi=hard
 MCU = $(CPU) -mthumb $(FPU) $(FLOAT-ABI)
 
-obj = stm32/startup_stm32l432xx.o stm32/system_stm32l4xx.o \
-			stm32/stm32l4xx_hal_msp.o \
-			stm32/stm32l4xx_hal.o stm32/stm32l4xx_hal_cortex.o \
-			stm32/stm32l4xx_hal_rcc.o stm32/stm32l4xx_hal_pwr_ex.o \
-			stm32/stm32l4xx_hal_pwr.o \
-			stm32/stm32l4xx_hal_dma.o \
-			stm32/stm32l4xx_hal_uart.o stm32/stm32l4xx_hal_uart_ex.o \
-			stm32/stm32l4xx_hal_gpio.o \
-			stm32/stm32l4xx_it.o \
-			io/io.o \
-			system_init.o \
-			cmd/cmd.o \
-			main.o
+obj = \
+						stm32/startup_stm32l432xx.o \
+						stm32/system_stm32l4xx.o \
+						stm32/stm32l4xx_hal.o \
+						stm32/stm32l4xx_hal_cortex.o \
+						stm32/stm32l4xx_it.o \
+						stm32/stm32l4xx_hal_rcc.o \
+						stm32/stm32l4xx_hal_pwr_ex.o \
+						stm32/stm32l4xx_hal_pwr.o \
+						stm32/stm32l4xx_hal_dma.o \
+						stm32/stm32l4xx_hal_uart.o \
+						stm32/stm32l4xx_hal_uart_ex.o \
+						stm32/stm32l4xx_hal_gpio.o \
+						init/stm32l4xx_hal_msp.o \
+						init/system_init.o \
+						init/main.o \
+						io/io.o \
+						cmd/cmd.o
 
 ldscript = STM32L432KCUx_FLASH.ld
 
 ASFLAGS=$(MCU)
 
 CFLAGS=$(MCU)
-CFLAGS+=-I. -Icmsis -Istm32 \
-								-Iio -Idelay \
+CFLAGS+=-I. \
+								-Icmsis \
+								-Istm32 \
+								-Iio \
+								-Idelay \
 								-Icmd
 
 CFLAGS+=-DSTM32L432xx
@@ -40,16 +48,19 @@ LDFLAGS+=--specs=nosys.specs
 
 all : prog.elf
 
-%.o : %.S
-	$(CC) -c -g $(ASFLAGS) \
+%.o : %.s
+	@echo [AS] $@
+	@$(CC) -c -g $(ASFLAGS) \
 		-o $@ $<
 
 %.o : %.c
-	$(CC) -c -g $(CFLAGS) \
+	@echo [CC] $@
+	@$(CC) -c -g $(CFLAGS) \
 		-o $@ $<
 
 prog.elf : $(obj)
-	$(CC) $(LDFLAGS) \
+	@echo [LD] $@
+	@$(CC) $(LDFLAGS) \
 		-T $(ldscript) \
 		-o $@ $^
 
