@@ -1,21 +1,6 @@
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <ctype.h>
-
+#include "input.h"
 #include "io.h"
-
-extern char _input[];
-
-struct _input_t {
- char *p;
-};
-
-typedef struct _input_t input_t[1];
-
-int input_init(input_t);
-int input_readnumber(input_t input, long *v);
 
 int cmd_solve(char *args){
  io_printf("solve...\r\n");
@@ -48,38 +33,7 @@ int cmd_solve(char *args){
 }
 
 int cmd_input(char *args){
- char *p;
- p = _input;
- while(p[0] != 0){
-  if(p[0] == '\n'){
-   io_printf("\r\n");
-  }else{
-   io_printf("%c", p[0]);
-  }
-  p++;
- }
+ input_print();
  return 0;
 }
 
-int input_init(input_t input){
- input->p = _input;
- return 0;
-}
-
-int input_readnumber(input_t input, long *v){
- char *q;
- if(v == NULL){
-  return 1;
- }
- errno = 0;
- v[0] = strtol(input->p, &q, 10);
- if(errno != 0 || input->p == q){
-  return 1;
- }
- /* skip space characters */
- while(isspace(q[0])){
-  q++;
- }
- input->p = q;
- return 0;
-}

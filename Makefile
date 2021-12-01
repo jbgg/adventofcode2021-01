@@ -30,7 +30,8 @@ obj = \
 						io/io.o \
 						cmd/cmd.o \
 						solve/solve.o \
-						solve/input.o
+						solve/input.o \
+						solve/input_c.o
 
 ldscript = STM32L432KCUx_FLASH.ld
 
@@ -42,7 +43,8 @@ CFLAGS+=-I. \
 								-Istm32 \
 								-Iio \
 								-Idelay \
-								-Icmd
+								-Icmd \
+								-Isolve
 
 CFLAGS+=-DSTM32L432xx
 
