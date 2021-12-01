@@ -6,12 +6,14 @@
 #include "delay.h"
 #include "cmd.h"
 
-int cmd_test(char *args);
 int cmd_void(char *args);
+int cmd_test(char *args);
+int cmd_solve(char *args);
 
 struct cmd_t cmds[] = {
  {"", cmd_void},
  {"test", cmd_test},
+ {"solve", cmd_solve},
  {0,}
 };
 

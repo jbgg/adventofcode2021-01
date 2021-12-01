@@ -27,7 +27,8 @@ obj = \
 						init/system_init.o \
 						init/main.o \
 						io/io.o \
-						cmd/cmd.o
+						cmd/cmd.o \
+						solve/solve.o
 
 ldscript = STM32L432KCUx_FLASH.ld
 
