@@ -9,11 +9,13 @@
 int cmd_void(char *args);
 int cmd_test(char *args);
 int cmd_solve(char *args);
+int cmd_input(char *args);
 
 struct cmd_t cmds[] = {
  {"", cmd_void},
  {"test", cmd_test},
  {"solve", cmd_solve},
+ {"input", cmd_input},
  {0,}
 };
 

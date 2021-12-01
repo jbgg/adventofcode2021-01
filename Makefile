@@ -2,6 +2,7 @@
 PREFIX=arm-none-eabi-
 AS=$(PREFIX)as
 CC=$(PREFIX)gcc
+LD=$(PREFIX)ld
 
 OBJDUMP=$(PREFIX)objdump
 
@@ -28,7 +29,8 @@ obj = \
 						init/main.o \
 						io/io.o \
 						cmd/cmd.o \
-						solve/solve.o
+						solve/solve.o \
+						solve/data.o
 
 ldscript = STM32L432KCUx_FLASH.ld
 
@@ -48,6 +50,10 @@ LDFLAGS=$(MCU)
 LDFLAGS+=--specs=nosys.specs
 
 all : prog.elf
+
+solve/data.o : solve/input
+	@echo [BIN] $@
+	@$(LD) -r -b binary -o $@ $<
 
 %.o : %.s
 	@echo [AS] $@
