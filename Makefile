@@ -30,7 +30,7 @@ obj = \
 						io/io.o \
 						cmd/cmd.o \
 						solve/solve.o \
-						solve/data.o
+						solve/input.o
 
 ldscript = STM32L432KCUx_FLASH.ld
 
@@ -50,10 +50,6 @@ LDFLAGS=$(MCU)
 LDFLAGS+=--specs=nosys.specs
 
 all : prog.elf
-
-solve/data.o : solve/input
-	@echo [BIN] $@
-	@$(LD) -r -b binary -o $@ $<
 
 %.o : %.s
 	@echo [AS] $@
