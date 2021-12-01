@@ -2,7 +2,7 @@
 #include "input.h"
 #include "io.h"
 
-int cmd_solve(char *args){
+int cmd_solve1(char *args){
  io_printf("solve...\r\n");
 
  input_t input;
@@ -20,15 +20,19 @@ int cmd_solve(char *args){
   return 1;
  }
 
- io_printf("prev = %d\r\n", prev);
-
+ int count = 0;
  while(input->p[0] != 0){
   if(input_readnumber(input, &v) != 0){
    io_printf("error reading number\r\n");
    return 1;
   }
-  io_printf("v = %d\r\n", v);
+  if(v > prev){
+   count++;
+  }
+  prev = v;
  }
+ io_printf("%d\r\n", count);
+
  return 0;
 }
 
@@ -36,4 +40,3 @@ int cmd_input(char *args){
  input_print();
  return 0;
 }
-

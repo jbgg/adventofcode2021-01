@@ -8,13 +8,13 @@
 
 int cmd_void(char *args);
 int cmd_test(char *args);
-int cmd_solve(char *args);
+int cmd_solve1(char *args);
 int cmd_input(char *args);
 
 struct cmd_t cmds[] = {
  {"", cmd_void},
  {"test", cmd_test},
- {"solve", cmd_solve},
+ {"solve1", cmd_solve1},
  {"input", cmd_input},
  {0,}
 };
@@ -26,8 +26,6 @@ int main(void){
  system_init();
 
  io_printf("XX\r\n");
-
- io_printf("hello world\r\n");
 
  cmd_loop();
 
